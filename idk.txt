@@ -1,0 +1,49 @@
+                .then(response =>  {
+                    console.log(response.data);
+                    const limit = document.getElementById("limit").value;
+                    const products = response.data;
+                    const result = document.getElementById("result");
+                    var count = 0;
+                    document.getElementById("result").innerHTML = `
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <th>name</th>
+                                    <th>price</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                    
+                    for (count<limit){
+                        let name = products[count].name;
+                        let price = products[count].price;
+                        const trElem = document.createElement("tr");
+                        const tdElem=document.createElement("td");
+                        tdElem.innerText=name;
+                        
+                        tdElem.innerText=name.appendChild(trElem);
+                        tdElem.innerText=price.appendChild(trElem);
+                        trElem.appendChild(result);
+                        count++;
+                    }
+                    const bone = `</tbody>
+                        </table>`;
+                    bone.appendChild(bone);
+                                
+                })
+                .catch(error => {
+                    console.log(error);
+                });  
+
+/*
+                    <table class = "table">
+                        <tbody>
+                            <tr>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    */

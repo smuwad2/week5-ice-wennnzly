@@ -1,0 +1,27 @@
+<table class = "table">
+    <tbody>
+        <tr>
+            <th></th>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+    </tbody>
+
+
+document.getElementById("result").innerHTML = `
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John</td>
+                                    <td>25</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;

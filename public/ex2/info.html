@@ -23,10 +23,69 @@
 
         </div>
         <script>
-            function getData() {
- 
+            async function getData() {
+                try {
+                    //issue GET request to /data
+                    const response = await axios.get("/data", {
+                        "params": {
+                            "type": document.getElementById("type").value,
+                            "limit": document.getElementById("limit").value
+                        }
+                    })
+                    generateTable(response.data);
+                } catch (error) {
+                    console.log(error);
+                }
             }
 
+            function generateTable(dataObj) {
+                const resultDivElem = document.getElementById("result");
+                while (resultDivElem.firstChild) {
+                    resultDivElem.firstChild.remove();
+                }
+                const h2Elem = document.createElement("h2");
+                h2Elem.innerText = dataObj["type"];
+                resultDivElem.appendChild(h2Elem);
+                /* <table class="table">
+                        <tbody>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table> */
+                let tableElem = document.createElement("table");
+                tableElem.className = "table";
+                const tBodyElem = document.createElement("tbody");
+                let trElem = document.createElement("tr");
+                //retrieve and create the table heading labels
+                console.log(dataObj["records"]);
+                const tblHeadingLabels = Object.keys(dataObj["records"][0]);
+                for (let headingLabel of tblHeadingLabels) {
+                    let thElem = document.createElement("th");
+                    thElem.innerText = headingLabel;
+                    trElem.appendChild(thElem);
+                }
+                tBodyElem.appendChild(trElem);
+                //create the table data
+                
+                for (let i=0; i< dataObj["records"].length; i++) {
+                    const trElem = document.createElement("tr");
+                    let elem = dataObj["records"][i];
+                    for (let j=0; j<tblHeadingLabels.length; j++) {
+                        const tdElem = document.createElement("td");
+                        const elemVal = elem[tblHeadingLabels[j]];
+                        tdElem.innerText = elemVal;
+                        trElem.appendChild(tdElem);
+                    }
+                    tBodyElem.appendChild(trElem);
+                }
+                tableElem.appendChild(tBodyElem);
+                resultDivElem.appendChild(tableElem);
+            }
         </script>
 </body>
 </html>
